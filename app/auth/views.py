@@ -1,10 +1,10 @@
 from flask import render_template, redirect, request, url_for, flash
-from . import auth
+import auth
 from flask_login import login_user, logout_user, login_required, current_user
-from ..models import User
-from .forms import LoginForm, RegistrationForm
-from .. import db
-from ..email_module import send_email
+from models import User
+from forms import LoginForm, RegistrationForm
+from __init__ import db
+from email_module import send_email
 
 
 @auth.route('/login', methods=['GET', 'POST'])

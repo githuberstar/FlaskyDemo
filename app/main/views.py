@@ -7,6 +7,7 @@ from .. import db
 from ..models import User
 from .. import login_manager
 
+
 @main.route('/', methods=['GET','POST'])
 def index():
     form = NameForm()
