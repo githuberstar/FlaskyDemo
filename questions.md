@@ -24,3 +24,12 @@ Traceback (most recent call last):
 ValueError: Attempted relative import in non-package`
 
 也就是回到了之前说的问题，app/models.py里的from . 和from __init__ 的问题，这里怎么改
+
+
+１．你需要在代码里面修改系统寻找路劲。
+file_folder = os.path.dirname(os.path.abspath(__file__))
+os.chdir(os.path.dirname(file_folder))
+sys.path.append(os.getcwd())
+２．直接 from packagename　import 就行了
+3.　从来没看过这么差劲的代码。。。是不是书有问题。请看官方文档会简单很多，也容易Ｄｅｂｕｇ
+４．https://github.com/pallets/flask/tree/master/examples/flaskr/　看这个项目
