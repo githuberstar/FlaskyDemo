@@ -1,5 +1,15 @@
 #!/bin/env python
 #-*- coding:utf-8 -*-
+import os
+
+import sys
+
+if __name__ == "__main__":
+    file_folder = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(os.path.dirname(os.path.dirname(file_folder)))
+    sys.path.append(os.getcwd())
+
+
 import unittest
 from models import User, Permission, AnonymousUser
 #from flask import Flask, render_template
