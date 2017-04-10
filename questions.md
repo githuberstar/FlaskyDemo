@@ -1,4 +1,4 @@
-run /tests/test_user_model.py ´íÎóÕ»£º
+run /tests/test_user_model.py é”™è¯¯æ ˆï¼š
 
 `E:\workplace\python\FlaskyDemo\tests\test_user_model.py:3: RuntimeWarning: Parent module 'tests' not found while handling absolute import
   import os
@@ -23,4 +23,4 @@ Traceback (most recent call last):
     from . import login_manager, db
 ValueError: Attempted relative import in non-package`
 
-Ò²¾ÍÊÇ»Øµ½ÁËÖ®Ç°ËµµÄÎÊÌâ£¬app/models.pyÀïµÄfrom . ºÍfrom __init__ µÄÎÊÌâ£¬ÕâÀïÔõÃ´¸Ä
+ä¹Ÿå°±æ˜¯å›åˆ°äº†ä¹‹å‰è¯´çš„é—®é¢˜ï¼Œapp/models.pyé‡Œçš„from . å’Œfrom __init__ çš„é—®é¢˜ï¼Œè¿™é‡Œæ€ä¹ˆæ”¹
