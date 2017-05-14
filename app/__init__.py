@@ -3,6 +3,10 @@ from flask_bootstrap import Bootstrap
 from flask_mail import Mail
 from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
+<<<<<<< HEAD
+=======
+from config import config
+>>>>>>> 956d26850dc5dd64981040bc0af60d7f72291438
 from flask_login import LoginManager
 from config import config
 
