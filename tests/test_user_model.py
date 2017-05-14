@@ -1,13 +1,20 @@
-#!/bin/env python
-#-*- coding:utf-8 -*-
 import unittest
-from models import User, Permission, AnonymousUser
-#from flask import Flask, render_template
-
-#import os
+from app.models import User, Permission, AnonymousUser, Role
+from app import create_app, db
 
 
 class UserModuleTest(unittest.TestCase):
+    def setUp(self):
+        self.app = create_app('testing')
+        self.app_context = self.app.app_context()
+        self.app_context.push()
+        db.create_all()
+        Role.insert_roles()
+
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
+        self.app_context.pop()
     # def test_password_setter(self):
     #     u = User(password = 'cat')
     #     self.assertTrue(u.password_hash is not None)
@@ -28,24 +35,14 @@ class UserModuleTest(unittest.TestCase):
     #     self.assertNotEqual(u.password_hash, u2.password_hash)
 
     def test_roles_and_permissions(self):
-        #Role.insert_roles()
         u = User(email='flasky@example.com', password='123456')
         self.assertTrue(u.can(Permission.WRITE_ARTICLES))
-        self.assertFalse(u.can(Permission.MODERATE_COMMENTS))
+        self.assertTrue(u.can(Permission.MODERATE_COMMENTS))
 
     def test_anonymous_user(self):
         u = AnonymousUser()
         self.assertFalse(u.can(Permission.FOLLOW))
 
-
-if __name__ == '__main__':
-    # app = Flask(__name__)
-    # ####SMTP server config
-    # app.config['MAIL_SERVER'] = 'smtp.163.com'  # 电子邮件服务器的地址
-    # app.config['MAIL_PORT'] = 25  # 邮箱服务器的端口
-    # app.config['MAIL_USE_TLS'] = True  # 启用安全传输
-    # app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')  # 邮件账户用户名,已定义环境变量
-    # app.config['MAIL_PASSWORD'] = os.environ.get(('MAIL_PASSWORD'))  # 邮件账密码,已定义环境变量
-    # app.config['FLASKY_ADMIN'] = 'aa'
-    # app.run()
-    unittest.main()
+#
+# if __name__ == '__main__':
+#     unittest.main()
