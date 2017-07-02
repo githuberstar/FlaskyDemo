@@ -1,1 +1,1 @@
--r comment.txt
+-r common.txt

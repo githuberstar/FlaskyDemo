@@ -1,4 +1,4 @@
--r comment.txt
+-r common.txt
 coverage==4.4.1
 ForgeryPy==0.1
 httpie==0.9.9
