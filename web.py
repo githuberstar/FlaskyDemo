@@ -46,5 +46,5 @@ def test(coverage=False):
         COV.erase()
 
 if __name__ == '__main__':
-    #app.run('127.0.0.1', 5000, debug=True)
+    app.run('127.0.0.1', 8000, debug=True)
     manager.run()

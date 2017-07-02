@@ -1,2 +1,6 @@
--r common.txt
+-r comment.txt
+coverage==4.4.1
 ForgeryPy==0.1
+httpie==0.9.9
+Pygments==2.2.0
+requests==2.18.1
