@@ -1,5 +1,5 @@
 from flask_migrate import Migrate, MigrateCommand
-from .. import DemoManage
+from .. import web
 
-migrate = Migrate(DemoManage.app, DemoManage.db)
-DemoManage.manager.add_command('db', MigrateCommand)
+migrate = Migrate(web.app, web.db)
+web.manager.add_command('db', MigrateCommand)
