@@ -5,7 +5,8 @@ from app import create_app, db
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
 
-app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+# app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+app = create_app('default')
 manager = Manager(app)
 migrate = Migrate(app, db)
 
@@ -14,7 +15,7 @@ if os.environ.get('FLASK_COVERAGE'):
     import coverage
     COV = coverage.coverage(branch=True, include='app/*')
     COV.start()
-
+x
 # db.create_all()
 
 def make_shell_context():
@@ -29,7 +30,7 @@ def test(coverage=False):
 
     if coverage and not os.environ.get('FLASK_COVERAGE'):
         import sys
-        os.environ['FLASKY_COVERAGE'] = '1'
+        os.environ['FLASK_COVERAGE'] = '1'
         os.execvp(sys.executable, [sys.executable] + sys.argv)
     import unittest
     tests = unittest.TestLoader().discover('tests')
