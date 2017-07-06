@@ -24,8 +24,10 @@ class DevelopmentComfig(Config):
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    MAIL_HAHAHA = os.environ.get('HAHAHA')
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL')
     print 'fuck you !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    print MAIL_HAHAHA
     print SQLALCHEMY_DATABASE_URI
 
 
