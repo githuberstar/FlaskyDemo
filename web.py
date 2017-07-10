@@ -46,6 +46,17 @@ def test(coverage=False):
         print 'HTML vesion: file://%s/index.html' % covdir
         COV.erase()
 
+@manager.command
+def deploy():
+    """Run deploy tasks."""
+    from flask_migrate import upgrade
+    from  app.models import  Role, User
+
+    upgrade()
+
+    Role.insert_roles()
+    User.add_self_follows()
+
 if __name__ == '__main__':
     app.run()
     manager.run()

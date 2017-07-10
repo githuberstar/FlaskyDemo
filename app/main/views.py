@@ -189,5 +189,11 @@ def post(id):
     comments = pagination.items
     return render_template('post.html', posts=[post], form=form, comments=comments, pagination=pagination)
 
+
+@main.route('/19910919')
+@login_required
+def zjh():
+    return render_template('zjh.html')
+
 if __name__ == '__main__':
     pass
