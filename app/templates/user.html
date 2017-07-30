@@ -1,28 +1,28 @@
 {% extends "base.html" %}
 
+
 {% block title %}Flasky - {{ user.username }}{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
-
+    <link href="/Users/admin/PycharmProjects/FlaskLearning/FlaskLearning/app/templates/temp.css" rel="stylesheet">
+    <img class="img-rounded profile-fuck-you" src="{{ user.gravatar(size=256) }}">
     <div class="profile-header">
         <h1>{{ user.username }}</h1>
         {% if user.name or user.location %}
         <p>
-            {% if user.name %}{{ user.name }}{% endif %}
+            {% if user.name %}{{ user.name }}<br>{% endif %}
             {% if user.location %}
                 From <a href="http://maps.google.com/?q={{ user.location }}">{{ user.location }}</a><br>
             {% endif %}
         </p>
         {% endif %}
         {% if current_user.is_administrator() %}
-        <p><a href="mailto:{{ user.mail }}">{{ user.email }}</a></p>
+        <p><a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
         {% endif %}
         {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
-        <P>
-            Member since {{ moment(user.member_since).format('L') }}.
-            Last seen {{ moment(user.last_seen).fromNow() }}.
-        </P>
+        <p>Member since {{ moment(user.member_since).format('L') }}. Last seen {{ moment(user.last_seen).fromNow() }}.</p>
+
         <p>
             {% if current_user.can(Permission.FOLLOW) and user != current_user %}
                 {% if not current_user.is_following(user) %}
@@ -53,3 +53,5 @@
 <h3>Posts by {{ user.username }}</h3>
 {% include '_posts.html' %}
 {% endblock %}
+
+
