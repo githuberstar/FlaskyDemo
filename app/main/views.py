@@ -54,6 +54,10 @@ def for_admins_only():
     return "For administrators!"
 
 
+@main.route('/aaaaa')
+def aaaaa():
+    return render_template("learncss.html")
+
 @main.route('/moderator')
 @login_required
 @permission_required(Permission.MODERATE_COMMENTS)

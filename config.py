@@ -57,5 +57,5 @@ config = {
     'testing':TestingConfig,
     'production':ProductionConfig,
 
-    'default':DevelopmentComfig
+    'default':ProductionConfig
 }
