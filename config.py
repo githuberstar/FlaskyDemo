@@ -1,6 +1,7 @@
 import os
-import psycopg2
+import mysql.connector
 import urlparse
+from sqlalchemy import create_engine
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -32,7 +33,7 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:zhujihui6578602@207.246.77.81:3306/test'
 
 
 class ProductionConfig(Config):

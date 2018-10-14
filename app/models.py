@@ -120,6 +120,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     confirmed = db.Column(db.Boolean, default=False)
     avatar_hash = db.column(db.String(32))
+    avatar_hash2 = db.column(db.String(32))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     followed = db.relationship('Follow',
                                foreign_keys=[Follow.follower_id],
@@ -148,7 +149,6 @@ class User(UserMixin, db.Model):
     @property
     def password(self):
         raise AttributeError('password is not a readable attribute')
-
 
     @password.setter
     def password(self, password):
@@ -197,7 +197,6 @@ class User(UserMixin, db.Model):
         f = self.followed.filter_by(followed_id=user.id).first()
         if f:
             db.session.delete(f)
-
 
     def is_following(self, user):
         return self.followed.filter_by(followed_id=user.id).first() is not None

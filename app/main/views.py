@@ -1,3 +1,4 @@
+# _*_ coding:utf-8 _*_
 from datetime import datetime
 from flask import render_template, session, redirect, url_for, flash, request, current_app, make_response
 from werkzeug.exceptions import abort
@@ -11,7 +12,7 @@ from .. import login_manager
 from flask_login import login_required, current_user
 
 
-@main.route('/', methods=['GET','POST'])
+@main.route('/', methods=['GET', 'POST'])
 def index():
     form = PostForm()
     if current_user.can(Permission.WRITE_ARTICLES) and \
@@ -32,6 +33,7 @@ def index():
     posts = pagination.items
     return render_template('index.html', form=form, posts=posts, pagination=pagination)
 
+
 @main.route('/all')
 @login_required
 def show_all():
@@ -47,6 +49,7 @@ def show_followed():
     resp.set_cookie('show_followed', '1', max_age=30*24*60^60)
     return resp
 
+
 @main.route('/admin')
 @login_required
 @admin_required
@@ -54,15 +57,12 @@ def for_admins_only():
     return "For administrators!"
 
 
-@main.route('/aaaaa')
-def aaaaa():
-    return render_template("learncss.html")
-
 @main.route('/moderator')
 @login_required
 @permission_required(Permission.MODERATE_COMMENTS)
 def for_moderators_only():
     return  "For comments moderators"
+
 
 @main.route('/user/<username>')
 def user(username):
@@ -72,9 +72,11 @@ def user(username):
     posts = user.posts.order_by(Post.timestamp.desc()).all()
     return render_template('user.html', user=user, posts=posts)
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
 
 @main.route('/edit-profile', methods=['GET', 'POST'])
 @login_required
@@ -85,12 +87,13 @@ def edit_profile():
         current_user.location = form.location.data
         current_user.about_me = form.about_me.data
         db.session.add(current_user)
-        flash('Your profile has been updated')
+        flash('您的个人资料已更新')
         return redirect(url_for('.user', username=current_user.username))
     form.name.data = current_user.name
     form.location.data = current_user.location
     form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', form=form)
+
 
 @main.route('/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
