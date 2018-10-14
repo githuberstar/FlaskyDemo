@@ -1,9 +1,16 @@
 #!/usr/bin/env python
 import os
+import sys
 from app.models import Role, User, Post
 from app import create_app, db
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
+
+
+default_encoding = 'utf-8'
+if sys.getdefaultencoding() != default_encoding:
+    reload(sys)
+    sys.setdefaultencoding(default_encoding)
 
 # app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 app = create_app('default')

@@ -1,3 +1,4 @@
+# _*_ coding:utf-8 _*_
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, ValidationError
 from wtforms.validators import DataRequired, Length, Email, Regexp, EqualTo
@@ -5,28 +6,28 @@ from app.models import User
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Length(1,64),
+    email = StringField('邮箱', validators=[DataRequired(), Length(1,64),
                                               Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    remember_me = BooleanField('keep me logged in')
-    submit = SubmitField('Log In')
+    password = PasswordField('密码', validators=[DataRequired()])
+    remember_me = BooleanField('保持登录状态')
+    submit = SubmitField('登录')
 
 
 class RegistrationForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Length(1,64),
+    email = StringField("邮箱", validators=[DataRequired(), Length(1,64),
                                              Email()])
-    username = StringField('Username', validators=[
+    username = StringField('用户名', validators=[
         DataRequired(), Length(1,64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
-                                           'Usernames must have only letters, numbers, dots or underscores')])
-    password = PasswordField('Password', validators=[
-        DataRequired(), EqualTo('password2', message='Passwords must match.')])
-    password2 = PasswordField('Confirm password', validators=[DataRequired()])
-    submit = SubmitField('Register')
+                                           '用户名只允许数字字母和下划线')])
+    password = PasswordField('密码', validators=[
+        DataRequired(), EqualTo('password2', message='两次密码输入必需一致')])
+    password2 = PasswordField('重复密码', validators=[DataRequired()])
+    submit = SubmitField('点击提交')
 
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first():
-            raise ValidationError('Email already registerd')
+            raise ValidationError('邮箱已被注册')
 
     def validate_username(self, field):
         if User.query.filter_by(username=field.data).first():
-            raise ValidationError('Username already in use')
+            raise ValidationError('用户名已存在')
