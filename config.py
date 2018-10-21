@@ -1,5 +1,5 @@
 import os
-import mysql.connector
+# import mysql.connector
 import urlparse
 from sqlalchemy import create_engine
 

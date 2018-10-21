@@ -267,8 +267,7 @@ class User(UserMixin, db.Model):
 
 
 class AnonymousUser(AnonymousUserMixin):
-    @staticmethod
-    def can():
+    def can(self, permissions):
         return False
 
     @staticmethod
