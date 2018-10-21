@@ -38,8 +38,7 @@ class TestingConfig(Config):
 
 
 class ProductionConfig(Config):
-    urlparse.uses_netloc.append("postgres")
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('mysql+mysqlconnector://root:zhujihui6578602@207.246.77.81:3306/blog')
 
 
 class HerokuConfig(ProductionConfig):
