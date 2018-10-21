@@ -34,7 +34,7 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:zhujihui6578602@207.246.77.81:3306/test'
+    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:zhujihui6578602@207.246.77.81:3306/test?characterEncoding=utf-8'
 
 
 class ProductionConfig(Config):
