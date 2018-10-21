@@ -3,7 +3,11 @@
     <li class="post">
         <div class="post-thumbnail">
             <a href="{{ url_for('.user', username=post.author.username) }}">
-                <img class="img-rounded profile-thumbnail" src="{{ post.author.gravatar(size=40) }}">
+                {% if post.author.avatar %}
+                <img class="img-rounded profile-thumbnail" width="40" height="40" src="{{ post.author.avatar }}">
+                {% else %}
+                <img class="img-rounded profile-thumbnail" width="40" height="40" src="/static/default.png">
+                {% endif %}
             </a>
         </div>
         <div class="post-content">
@@ -19,7 +23,7 @@
             <div class="post-footer">
                 {% if current_user == post.author %}
                 <a href="{{ url_for('.edit', id=post.id) }}">
-                    <span class="label label-primary">Edit</span>
+                    <span class="label label-primary">编辑</span>
                 </a>
                 {% elif current_user.is_administrator() %}
                 <a href="{{ url_for('.edit', id=post.id) }}">

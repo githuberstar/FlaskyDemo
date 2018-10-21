@@ -119,6 +119,7 @@ class User(UserMixin, db.Model):
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
     password_hash = db.Column(db.String(128))
     confirmed = db.Column(db.Boolean, default=False)
+    avatar = db.Column(db.String(128), default=None)
     avatar_hash = db.column(db.String(32))
     avatar_hash2 = db.column(db.String(32))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
@@ -182,7 +183,7 @@ class User(UserMixin, db.Model):
                (self.role.permissions & permissions) == permissions
 
     def is_administrator(self):
-        return self.can(Permission.ADMINSTER)
+        return self.can(Permission.ADMINISTER)
 
     def ping(self):
         self.last_seen = datetime.utcnow()
@@ -229,7 +230,7 @@ class User(UserMixin, db.Model):
     def followed_posts(self):
         return Post.query.join(Follow, Follow.followed_id == Post.author_id).filter(Follow.follower_id == self.id)
 
-    #generate fake users for test environment
+    # generate fake users for test environment
     @staticmethod
     def generate_fake(count=100):
         from sqlalchemy.exc import IntegrityError
@@ -266,10 +267,12 @@ class User(UserMixin, db.Model):
 
 
 class AnonymousUser(AnonymousUserMixin):
-    def can(self, permissions):
+    @staticmethod
+    def can():
         return False
 
-    def is_administrator(self):
+    @staticmethod
+    def is_administrator():
         return False
 
 
@@ -297,7 +300,12 @@ class Permission:
     COMMENT = 0x02
     WRITE_ARTICLES = 0x04
     MODERATE_COMMENTS = 0x08
-    ADMINSTER = 0x80
+    ADMINISTER = 0x80
+
+
+class Token(db.Model):
+    __tablename__ = 'token'
+    id = db.Column(db.Integer, primary_key=True)
 
 
 login_manager.anonymous_user = AnonymousUser

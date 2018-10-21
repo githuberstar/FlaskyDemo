@@ -6,7 +6,7 @@
 
 {% block page_content %}
 <div class="page-header">
-    <h1>{% if current_user.is_authenticated %}{{ current_user.username }}{% else %}侠之大者，为国为民！{% endif %}</h1>
+    <h1>{% if current_user.is_authenticated %}{{ current_user.username }}{% else %}但偏偏 风渐渐 把距离吹得好远{% endif %}</h1>
 </div>
 <div>
     {% if current_user.can(Permission.WRITE_ARTICLES) %}

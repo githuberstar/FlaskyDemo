@@ -25,6 +25,7 @@ if os.environ.get('FLASK_COVERAGE'):
 
 # db.create_all()
 
+
 def make_shell_context():
     return dict(app=app, db=db, User=User, Role=Role, Post=Post)
 manager.add_command("shell", Shell(make_context=make_shell_context))
@@ -53,11 +54,12 @@ def test(coverage=False):
         print 'HTML vesion: file://%s/index.html' % covdir
         COV.erase()
 
+
 @manager.command
 def deploy():
     """Run deploy tasks."""
     from flask_migrate import upgrade
-    from  app.models import  Role, User
+    from app.models import Role, User
 
     upgrade()
 
@@ -65,5 +67,5 @@ def deploy():
     User.add_self_follows()
 
 if __name__ == '__main__':
-    # app.run()
+    app.run()
     manager.run()
