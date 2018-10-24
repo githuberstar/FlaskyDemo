@@ -14,9 +14,10 @@ class Config:
     FLASKY_POSTS_PER_PAGE = 20
     FLASKY_FOLLOWERS_PER_PAGE = 10
     FLASKY_COMMENTS_PER_PAGE = 10
-    MAIL_SERVER = 'smtp.163.com'
-    MAIL_PORT = 25
+    MAIL_SERVER = 'smtp.exmail.qq.com'
+    MAIL_PORT = 465
     MAIL_USE_TLS = True
+    MAIL_USE_SSL = True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     UPLOAD_FOLDER = os.getcwd() + '/app/static/avatar'
