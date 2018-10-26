@@ -1,3 +1,4 @@
+# __*__ coding:utf-8 __*__
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import login_manager, db
 from flask_login import UserMixin, AnonymousUserMixin
@@ -18,27 +19,28 @@ class Role(db.Model):
 
     users = db.relationship('User', backref='role', lazy='dynamic')
 
-
     @staticmethod
     def insert_roles():
         roles = {
-            'User':(Permission.FOLLOW |
-                    Permission.COMMENT |
-                    Permission.WRITE_ARTICLES, True),
-            'Moderator':(Permission.FOLLOW |
-                         Permission.COMMENT |
-                         Permission.WRITE_ARTICLES |
-                         Permission.MODERATE_COMMENTS, False),
-            'Administrator':(0xff, False)
+            'User': (Permission.FOLLOW |
+                     Permission.COMMENT |
+                     Permission.WRITE_ARTICLES, True),
+            'Moderator': (Permission.FOLLOW |
+                          Permission.COMMENT |
+                          Permission.WRITE_ARTICLES |
+                          Permission.MODERATE_COMMENTS, False),
+            'Administrator': (0xff, False)
         }
+        default_role = 'User'
         for r in roles:
             role = Role.query.filter_by(name=r).first()
             if role is None:
                 role = Role(name=r)
             role.permissions = roles[r][0]
-            role.default = roles[r][1]
+            role.default_value = (role.name == default_role)
             db.session.add(role)
         db.session.commit()
+
     def __repr__(self):
         return '<Role %r>' % self.name
 
@@ -61,7 +63,7 @@ class Post(db.Model):
         user_count = User.query.count()
         for i in range(count):
             u = User.query.offset(randint(0, user_count - 1)).first()
-            p = Post(body=forgery_py.lorem_ipsum.sentences(randint(1,3)),
+            p = Post(body=forgery_py.lorem_ipsum.sentences(randint(1, 3)),
                      timestamp=forgery_py.date.date(True),
                      author=u)
             db.session.add(p)
@@ -84,7 +86,7 @@ class Post(db.Model):
             'body_html': self.body_html,
             'timestamp': self.timestamp,
             'author': url_for('api.get_user', id=self.author_id, _external=True),
-            'comments':url_for('api.get_post_comments', id=self.id, _external=True),
+            'comments': url_for('api.get_post_comments', id=self.id, _external=True),
             'comment_count': self.comments.count()
         }
         return json_post
@@ -134,8 +136,8 @@ class User(UserMixin, db.Model):
                                 lazy='dynamic',
                                 cascade='all, delete-orphan')
     comments = db.relationship('Comment',
-                              backref='author',
-                              lazy='dynamic')
+                               backref='author',
+                               lazy='dynamic')
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
@@ -143,7 +145,8 @@ class User(UserMixin, db.Model):
             if self.email == current_app.config['FLASKY_ADMIN']:
                 self.role = Role.query.filter_by(permissions=0xff).first()
             if self.role is None:
-                self.role = Role.query.filter_by(default_value=True).first()
+                # 用str()转为原生sql后发现 default_value=True 的实际值为1，于是加上双引号查询，
+                self.role = Role.query.filter_by(default_value='True').first()
         if self.email is not None and self.avatar_hash is None:
             self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
 
@@ -291,7 +294,6 @@ class Comment(db.Model):
         target.body_html = bleach.linkify(bleach.clean(markdown(value, output_format='html'), tags=allowed_tags, strip=True))
 
 db.event.listen(Comment.body, 'set', Comment.on_change_body)
-
 
 
 class Permission:

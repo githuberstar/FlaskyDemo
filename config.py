@@ -16,7 +16,7 @@ class Config:
     FLASKY_COMMENTS_PER_PAGE = 10
     MAIL_SERVER = 'smtp.exmail.qq.com'
     MAIL_PORT = 465
-    MAIL_USE_TLS = True
+    # MAIL_USE_TLS = True
     MAIL_USE_SSL = True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')

@@ -105,7 +105,7 @@ div.flask-pagedown-preview h3 {
 .table.followers tr {
     border-bottom: 1px solid #e0e0e0;
 }
-.container {
+/* .container {
   padding-right: 20px;
   padding-left: 15px;
   margin-right: auto;
@@ -125,4 +125,60 @@ div.flask-pagedown-preview h3 {
   .container {
     width: 1000px;
   }
+}
+*/
+html, body {
+    color: #505050;
+    line-height: 1.75em;
+    background: #ebebeb;
+    position: relative;
+}
+.sidebar .widget {
+    background: #ffffff;
+    padding: 21px 30px;
+}
+.post {
+    padding: 35px;
+    background: #ffffff;
+    margin-bottom: 35px;
+    position: relative;
+    overflow: hidden;
+}
+.widget .title {
+    margin-top: 0;
+    padding-bottom: 7px;
+    border-bottom: 1px solid #ebebeb;
+    margin-bottom: 21px;
+    position: relative;
+}
+.widget .title:after {
+    content: "";
+    width: 90px;
+    height: 1px;
+    background: #e67e22;
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+}
+.navbar-inverse {
+    background: #5adf96 linear-gradient(-90deg,#00b791 0,#5adf96 100%);
+    border-color: #ebebeb;
+    border-top-color: #00b791;
+    border-bottom-color: #e5fbf3;
+    height: 66px;
+}
+.navbar-inverse .navbar-brand{
+    color: #ffffff;
+}
+.navbar-inverse .navbar-nav>li>a{
+    color: #ffffff;
+    top: 5px;
+}
+.navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 18px 18px;
+    font-size: 20px;
+    line-height: 20px;
+    position: relative;
 }
