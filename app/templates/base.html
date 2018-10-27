@@ -75,3 +75,17 @@
     {% endblock %}
     </body>
 {% endblock %}
+<script type="text/javascript">
+    var data = {}
+    $.ajax({
+    type: 'GET',
+    url: /announcement/,
+    data: JSON.stringify(data), # 转化为字符串
+    contentType: 'application/json; charset=UTF-8',
+    dataType: 'json', # 注意：这里是指希望服务端返回json格式的数据
+    success: function(data) { # 这里的data就是json格式的数据
+    },
+    error: function(xhr, type) {
+    }
+});
+</script>

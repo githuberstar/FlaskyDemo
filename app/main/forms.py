@@ -4,6 +4,7 @@ from wtforms import StringField, SubmitField, TextAreaField, FileField
 from wtforms.validators import DataRequired, Length
 from flask_pagedown.fields import PageDownField
 
+
 class NameForm(FlaskForm):
     name = StringField('What is your name?', validators=[DataRequired()])
     submit = SubmitField('Submit')

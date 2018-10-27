@@ -31,7 +31,7 @@ def index():
         query = Post.query
     pagination = query.order_by(Post.timestamp.desc()).paginate(page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'], error_out=False)
     posts = pagination.items
-    return render_template('index.html', form=form, posts=posts, pagination=pagination)
+    return render_template('index.html', form=form, posts=posts, show_followed=show_followed, pagination=pagination)
 
 
 @main.route('/all')
@@ -128,13 +128,13 @@ def edit(id):
 def follow(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
-        flash('Invalid user.')
+        flash('用户不存在！')
         return redirect(url_for('.index'))
     if current_user.is_following(user):
-        flash('You are already following this user.')
+        flash('您已关注此用户')
         return redirect(url_for('.user', username=username))
     current_user.follow(user)
-    flash('You are now following %s.' % username)
+    flash('您已成功关注 %s.' % username)
     return redirect(url_for('.user', username=username))
 
 
@@ -144,13 +144,13 @@ def follow(username):
 def unfollow(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
-        flash('Invalid user.')
+        flash('用户不存在！')
         return redirect(url_for('.index'))
     if not current_user.is_following(user):
-        flash('You are not following this user.')
+        flash('您未关注此用户！')
         return redirect(url_for('.user', username=username))
     current_user.unfollow(user)
-    flash('You are not following %s anymore.' % username)
+    flash('取消关注 %s 成功。' % username)
     return redirect(url_for('.user', username=username))
 
 
@@ -195,7 +195,7 @@ def post(id):
                           post=post,
                           author=current_user._get_current_object())
         db.session.add(comment)
-        flash('Your comment has been published.')
+        flash('评论成功！')
         return redirect(url_for('.post', id=post.id, page=-1))
     page = request.args.get('page', 1, type=int)
     if page == -1:
@@ -212,6 +212,7 @@ def post(id):
 @main.route('/19910919')
 @login_required
 def zjh():
+    flash('123')
     return render_template('zjh.html')
 
 if __name__ == '__main__':

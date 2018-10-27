@@ -174,6 +174,9 @@ html, body {
     color: #ffffff;
     top: 5px;
 }
+.navbar-collapse .collapse{
+    color: #ffffff;
+}
 .navbar-brand {
     float: left;
     height: 50px;

@@ -73,11 +73,10 @@ class Post(db.Model):
     def on_change_body(target, value, oldvalue, initiator):
         allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
                              'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
-                             'h1', 'h2', 'h3', 'p']
+                             'h1', 'h2', 'h3', 'p', '  ']
         target.body_html = bleach.linkify(bleach.clean(
             markdown(value, output_format='html'),
-            tags=allowed_tags, strip=True
-        ))
+            tags=allowed_tags, strip=True))
 
     def to_json(self):
         json_post = {
@@ -308,6 +307,18 @@ class Token(db.Model):
     __tablename__ = 'token'
     id = db.Column(db.Integer, primary_key=True)
 
+
+class Announcement(db.Model):
+    __tablename__ = 'announcement'
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text)
+
+    def to_json(self):
+        json_announcement = {
+            'id': self.id,
+            'content': self.content
+        }
+        return json_announcement
 
 login_manager.anonymous_user = AnonymousUser
 
